@@ -4,7 +4,7 @@
 This project is the code of the paper "Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution" 
 ## Paper Information
 **Title**: CMAME 25 - CPPN  
-**Authors**: Maohua Yan , Ruicheng Wang , Ke Liu*
+**Authors**: Maohua Yan , Ruicheng Wang , Ke Liu*  
 **Abstract**: The trade-offs between different mechanical properties of materials pose fundamental challenges
 in engineering material design, such as balancing stiffness versus toughness, weight versus
 energy-absorbing capacity, and among the various elastic coefficients. Although gradient-based
