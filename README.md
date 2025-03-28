@@ -23,6 +23,7 @@ empirical bounds of different combinations of elastic properties. Looking ahead,
 serves as a universal framework for the computational discovery of diverse metamaterials across a
 range of fields, including robotics, biomedicine, thermal engineering, and photonics.  
 ## [Metamaterial Database](https://doi.org/10.57760/sciencedb.22416)
+The database constructed in the paper has been made publicly available.
 
 ## Dependencies
 To run this project, you need the following environment and dependencies:
