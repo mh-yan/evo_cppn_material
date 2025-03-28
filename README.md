@@ -35,8 +35,8 @@ To run this project, you need the following environment and dependencies:
 ## Installation Guide
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/yourusername/CMAME_25_CPPN.git
-   cd CMAME_25_CPPN
+   git clone https://github.com/mh-yan/evo_cppn_material.git
+   cd evo_cppn_material
    ```
 2. Install required dependencies
 
