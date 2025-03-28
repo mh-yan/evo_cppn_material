@@ -22,6 +22,7 @@ such that they create metamaterial designs on the Pareto front of the MOO proble
 empirical bounds of different combinations of elastic properties. Looking ahead, our method
 serves as a universal framework for the computational discovery of diverse metamaterials across a
 range of fields, including robotics, biomedicine, thermal engineering, and photonics.  
+## [Metamaterial Database](https://doi.org/10.57760/sciencedb.22416)
 
 ## Dependencies
 To run this project, you need the following environment and dependencies:
