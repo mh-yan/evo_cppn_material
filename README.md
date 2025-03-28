@@ -3,7 +3,7 @@
 ## Project Overview
 This project is the code of the paper "Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution" 
 ## Paper Information
-**Title**: CMAME 25 - CPPN  
+**Title**: Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution  
 **Authors**: Maohua Yan , Ruicheng Wang , Ke Liu*  
 **Abstract**: The trade-offs between different mechanical properties of materials pose fundamental challenges
 in engineering material design, such as balancing stiffness versus toughness, weight versus
@@ -36,10 +36,7 @@ To run this project, you need the following environment and dependencies:
    git clone https://github.com/yourusername/CMAME_25_CPPN.git
    cd CMAME_25_CPPN
    ```
-2. Install required dependencies:  
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Install required dependencies
 
 ## Usage
 - Run the main script:
