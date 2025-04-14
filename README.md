@@ -31,6 +31,7 @@ To run this project, you need the following environment and dependencies:
 - neat
 - fenics
 - dolfin
+- ...other basic python module
 
 ## Installation Guide
 1. Clone this repository:  
