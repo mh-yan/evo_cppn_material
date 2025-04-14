@@ -28,7 +28,7 @@ The database constructed in the paper has been made publicly available.
 ## Dependencies
 To run this project, you need the following environment and dependencies:
 - Python 3.8
-- neat
+- neat-python
 - fenics
 - dolfin
 - ...other basic python module
