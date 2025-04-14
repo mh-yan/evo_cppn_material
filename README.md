@@ -1,7 +1,7 @@
 # Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution
 
 ## Project Overview
-This project is the code of the paper "Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution" 
+This project is the code of the paper "Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution", using [neat-python](https://neat-python.readthedocs.io/en/latest/) as a basic module.
 ## Paper Information
 **Title**: Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution  
 **Authors**: Maohua Yan , Ruicheng Wang , Ke Liu*  
