@@ -4,7 +4,7 @@ Research code for the paper **"Populating cellular metamaterials on the extrema 
 
 This repository explores metamaterial unit-cell design with **CPPNs (Compositional Pattern-Producing Networks)** and a **modified NEAT-based multi-objective evolutionary pipeline**. The framework generates diverse cellular geometries, evaluates their homogenized elastic properties, and pushes the search toward the empirical bounds of attainable elasticity.
 
-![Topology optimization result](topology_result.png)
+<img width="868" height="444" alt="image" src="https://github.com/user-attachments/assets/6c2c3015-98ed-4f55-ad59-85673d55aaad" />
 
 ## Overview
 
