@@ -58,11 +58,7 @@ At the repository level, the main metamaterial workflow is:
 ├── gen_pcd.py                  # Point-cloud generation utilities
 ├── tools/                      # Geometry, meshing, homogenization, constraints, utils
 ├── neat/                       # Modified local neat-python implementation
-├── injector_opt/               # Multi-objective injector optimization experiments
-├── injector_single/            # Single-objective injector optimization workflow
-├── design_framework/           # Framework snapshot / mirrored project layout
 ├── test/                       # Utility and exploratory test scripts
-├── DOCUMENTATION.md            # Detailed Chinese project documentation
 └── output/                     # Generated results, checkpoints, figures
 ```
 
@@ -81,13 +77,6 @@ At the repository level, the main metamaterial workflow is:
 
 - `neat/`: local fork of `neat-python`
 - `neat/population.py`: modified population flow for this research setup
-- `neat/spea2.py`: archive and Pareto-related utilities
-- `neat/ns.py`: novelty-search related support code
-
-### Engineering extensions
-
-- `injector_opt/`: injector/nozzle optimization with geometry perturbation, constraints, meshing, and external simulation hooks
-- `injector_single/`: simplified single-objective version tailored for cluster execution and DeepFlame-based evaluation
 
 ## Requirements
 
@@ -104,8 +93,6 @@ Optional dependencies for the injector-related workflows include:
 
 - Gmsh
 - `mpi4py`
-- OpenFOAM
-- DeepFlame
 
 Because this is a research codebase with several experimental branches, dependency management is partly workflow-specific. For the metamaterial experiments, the most important requirement is a working **FEniCS/Dolfin** environment.
 
