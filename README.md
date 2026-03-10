@@ -15,8 +15,6 @@ Designing architected materials often requires navigating strong trade-offs betw
 - **Finite-element homogenization** evaluates the effective properties of each generated unit cell.
 - **Multi-objective selection and diversity mechanisms** help populate the Pareto frontier instead of converging to a single design.
 
-The repository also contains follow-up engineering experiments for **injector/nozzle shape optimization**, built on the same "generate geometry -> mesh -> simulate -> score" workflow.
-
 ## Highlights
 
 - CPPN-based generation of 2D unit-cell topologies on structured point clouds
@@ -24,7 +22,6 @@ The repository also contains follow-up engineering experiments for **injector/no
 - Customized `neat-python` fork with archive-based multi-objective behavior and novelty-related utilities
 - FEniCS / Dolfin-based periodic homogenization for effective elastic-property evaluation
 - Utilities for geometry extraction, contour interpolation, meshing, constraint checking, and visualization
-- Experimental subprojects for injector optimization with Gmsh, OpenFOAM, and DeepFlame workflows
 
 ## Method Pipeline
 
@@ -89,11 +86,6 @@ The main metamaterial pipeline was developed around the following stack:
 - FEniCS / Dolfin
 - `cvxopt` (for some homogenization utilities)
 
-Optional dependencies for the injector-related workflows include:
-
-- Gmsh
-- `mpi4py`
-
 Because this is a research codebase with several experimental branches, dependency management is partly workflow-specific. For the metamaterial experiments, the most important requirement is a working **FEniCS/Dolfin** environment.
 
 ## Installation
@@ -106,7 +98,6 @@ cd evo_cppn_material
 Then install the dependencies required by your target workflow:
 
 - **Metamaterial pipeline**: Python scientific stack + FEniCS/Dolfin
-- **Injector pipeline**: Python scientific stack + Gmsh + MPI/OpenFOAM/DeepFlame toolchain
 
 ## Quick Start
 
