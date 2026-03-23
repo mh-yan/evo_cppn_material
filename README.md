@@ -1,79 +1,89 @@
 # Populating Cellular Metamaterials via Neuroevolution
 
-Research code for the paper **"Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution"**.
+<p align="center">
+  <em>Companion code repository for the paper<br>
+  "Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution"</em>
+</p>
 
-This repository explores metamaterial unit-cell design with **CPPNs (Compositional Pattern-Producing Networks)** and a **modified NEAT-based multi-objective evolutionary pipeline**. The framework generates diverse cellular geometries, evaluates their homogenized elastic properties, and pushes the search toward the empirical bounds of attainable elasticity.
+<p align="center">
+  <a href="https://www.sciencedirect.com/science/article/abs/pii/S0045782525002221"><strong>Paper</strong></a>
+  ·
+  <a href="https://doi.org/10.1016/j.cma.2025.117950"><strong>DOI</strong></a>
+  ·
+  <a href="https://doi.org/10.57760/sciencedb.22416"><strong>Database</strong></a>
+  ·
+  <a href="LICENSE"><strong>MIT License</strong></a>
+</p>
 
-<img width="868" height="444" alt="image" src="https://github.com/user-attachments/assets/6c2c3015-98ed-4f55-ad59-85673d55aaad" />
+<p align="center">
+  Maohua Yan, Ruicheng Wang, Ke Liu<br>
+  <em>Computer Methods in Applied Mechanics and Engineering</em>, 438 (2025), 117950
+</p>
+
+<p align="center">
+  <img width="868" height="444" alt="Representative evolved metamaterial topologies" src="https://github.com/user-attachments/assets/6c2c3015-98ed-4f55-ad59-85673d55aaad" />
+</p>
 
 ## Overview
 
-Designing architected materials often requires navigating strong trade-offs between mechanical properties such as stiffness, shear response, and Poisson's ratio. Instead of optimizing a single hand-crafted topology, this project treats metamaterial discovery as a **search problem over geometry generators**:
+This repository contains the research code used to generate 2D cellular metamaterial unit cells with **CPPNs (Compositional Pattern-Producing Networks)** and a **modified NEAT-based multi-objective evolutionary algorithm**. The workflow couples geometry generation, mesh construction, constraint handling, and periodic homogenization to search for designs near the empirical extrema of attainable elasticity.
 
-- **CPPNs** encode geometry compactly and generate structured, highly regular patterns.
-- **Modified NEAT** evolves both weights and topology of the CPPNs.
-- **Finite-element homogenization** evaluates the effective properties of each generated unit cell.
-- **Multi-objective selection and diversity mechanisms** help populate the Pareto frontier instead of converging to a single design.
+The primary research path in this repository is centered on [`main.py`](main.py), [`config.ini`](config.ini), [`tools/`](tools), and the local modified [`neat/`](neat) implementation.
 
-## Highlights
-
-- CPPN-based generation of 2D unit-cell topologies on structured point clouds
-- Multiple point-cloud symmetries: `nosym`, `sym2`, `sym4`, `rotate`, `parallel`
-- Customized `neat-python` fork with archive-based multi-objective behavior and novelty-related utilities
-- FEniCS / Dolfin-based periodic homogenization for effective elastic-property evaluation
-- Utilities for geometry extraction, contour interpolation, meshing, constraint checking, and visualization
-
-## Method Pipeline
+## Method at a Glance
 
 ```mermaid
 flowchart LR
     A[Initialize population] --> B[Decode genome to CPPN]
     B --> C[Sample structured point cloud]
     C --> D[Threshold and extract geometry]
-    D --> E[Build mesh]
-    E --> F[Evaluate effective properties]
-    F --> G[Assign fitness / constraints]
+    D --> E[Generate mesh]
+    E --> F[Evaluate effective elastic properties]
+    F --> G[Assign objectives and constraints]
     G --> H[Evolve next generation]
 ```
 
-At the repository level, the main metamaterial workflow is:
+At the repository level, the main workflow is:
 
-1. Generate a structured point cloud for the chosen symmetry class.
-2. Evaluate a CPPN on the point cloud.
-3. Convert scalar outputs into material/void regions.
-4. Construct a triangular mesh and enforce geometric constraints.
-5. Solve periodic homogenization problems to compute effective properties.
-6. Feed the results back into the evolutionary loop.
+1. Generate a structured point cloud for the selected symmetry class.
+2. Evaluate a CPPN on that point cloud to produce a scalar field.
+3. Threshold and interpolate the field into material and void regions.
+4. Build a mesh and check geometric validity or connectivity constraints.
+5. Solve the periodic homogenization problem to obtain effective properties.
+6. Feed the evaluated objectives back into the evolutionary loop.
 
-## Repository Layout
+## Repository Structure
 
 ```text
 .
-├── main.py                     # Main entry for metamaterial evolution
-├── config.ini                  # Core NEAT and experiment configuration
-├── multi_task.py               # Batch task definitions across symmetries/trade-offs
-├── gen_pcd.py                  # Point-cloud generation utilities
-├── tools/                      # Geometry, meshing, homogenization, constraints, utils
-├── neat/                       # Modified local neat-python implementation
-├── test/                       # Utility and exploratory test scripts
-└── output/                     # Generated results, checkpoints, figures
+├── main.py               # Main entry point for metamaterial evolution
+├── config.ini            # NEAT and experiment configuration
+├── multi_task.py         # Batch task definitions across symmetries and trade-offs
+├── gen_pcd.py            # Point-cloud generation utilities
+├── tools/                # Geometry, meshing, homogenization, constraints, utilities
+├── neat/                 # Local modified neat-python implementation
+├── test/                 # Exploratory and utility test scripts
+├── test.py               # Standalone test/demo entry
+└── design_framework.zip  # Archived framework snapshot
 ```
 
 ## Main Components
 
-### Core metamaterial workflow
+### Core workflow
 
-- `main.py`: experiment entry point and genome evaluation loop
+- `main.py`: experiment orchestration and genome evaluation loop
 - `gen_pcd.py`: structured point-cloud generation for different symmetry assumptions
-- `tools/shape.py`: contour extraction, triangulation, and geometry handling
-- `tools/read_mesh.py`: conversion from generated geometry to FEniCS meshes
-- `tools/period.py`: periodic homogenization and effective-property computation
+- `tools/shape.py`: contour extraction, triangulation, and topology construction
+- `tools/read_mesh.py`: conversion from generated geometry to FEniCS-compatible meshes
+- `tools/period.py`: periodic homogenization and effective-property evaluation
 - `tools/handle_constraints.py`: connectivity and validity checks
 
 ### Evolution engine
 
 - `neat/`: local fork of `neat-python`
 - `neat/population.py`: modified population flow for this research setup
+- `neat/spea2.py`: archive and Pareto-related utilities
+- `neat/ns.py`: novelty-related support code
 
 ## Requirements
 
@@ -84,24 +94,20 @@ The main metamaterial pipeline was developed around the following stack:
 - SciPy
 - Matplotlib
 - FEniCS / Dolfin
-- `cvxopt` (for some homogenization utilities)
+- `cvxopt`
 
-Because this is a research codebase with several experimental branches, dependency management is partly workflow-specific. For the metamaterial experiments, the most important requirement is a working **FEniCS/Dolfin** environment.
+Because this is a research codebase, environment setup is somewhat workflow-specific. For the main experiments, the critical requirement is a working **FEniCS/Dolfin** environment.
 
-## Installation
+## Getting Started
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/mh-yan/evo_cppn_material.git
 cd evo_cppn_material
 ```
 
-Then install the dependencies required by your target workflow:
-
-- **Metamaterial pipeline**: Python scientific stack + FEniCS/Dolfin
-
-## Quick Start
-
-### Run the main metamaterial experiment
+Install the dependencies required by your target workflow, then run the main experiment with:
 
 ```bash
 python main.py
@@ -109,57 +115,39 @@ python main.py
 
 This uses the settings in `config.ini` and the default trade-off defined in `main.py`.
 
-### Customize the experiment
+For customization:
 
-Edit `config.ini` to control parameters such as:
+- edit `config.ini` to change population size, number of generations, density, and symmetry type
+- inspect `multi_task.py` for batch experiment definitions
+- focus on `main.py`, `tools/`, and `neat/` if you are reproducing the paper pipeline
 
-- population size
-- number of generations
-- point-cloud density
-- symmetry type (`pcdtype`)
-- novelty/archive parameters
+## Data and Reproducibility
 
-### Batch experiments
+The paper-related metamaterial database is publicly available at:
 
-For multiple experiment definitions, inspect and edit `multi_task.py`, then enable task collection in `main.py`.
+- [Science Data Bank: Metamaterial Database](https://doi.org/10.57760/sciencedb.22416)
 
-## Output and Data
-
-Typical outputs include:
-
-- evolved genomes (`.pkl`)
-- generated meshes and contours
-- fitness distribution plots
-- intermediate geometry visualizations
-
-The paper-related metamaterial database is publicly available here:
-
-- [Metamaterial Database](https://doi.org/10.57760/sciencedb.22416)
-
-## Documentation
-
-- `DOCUMENTATION.md`: detailed Chinese walkthrough of the project structure and workflow
-
-If you are onboarding to the codebase for development or reproducibility work, `DOCUMENTATION.md` is the best starting point after this README.
-
-## Notes on Project Status
-
-This repository combines:
-
-- the main research code used for neuroevolutionary metamaterial discovery
-- modified optimization infrastructure built on top of `neat-python`
-- several engineering and downstream exploratory workflows
-
-As a result, some directories are more polished than others; the metamaterial pipeline centered around `main.py`, `config.ini`, `tools/`, and `neat/` is the primary reference implementation.
+This repository is best understood as a companion research codebase rather than a polished software package. The main reference implementation is the metamaterial pipeline centered on `main.py`, `config.ini`, `tools/`, and `neat/`.
 
 ## Citation
 
-If you use this repository in academic work, please cite the associated paper:
+If you use this repository in academic work, please cite:
 
-**Maohua Yan, Ruicheng Wang, Ke Liu**  
-*Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution*
+> Maohua Yan, Ruicheng Wang, Ke Liu. Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution. *Computer Methods in Applied Mechanics and Engineering*, 438 (2025), 117950. https://doi.org/10.1016/j.cma.2025.117950
+
+```bibtex
+@article{yan2025populating,
+  title   = {Populating cellular metamaterials on the extrema of attainable elasticity through neuroevolution},
+  author  = {Yan, Maohua and Wang, Ruicheng and Liu, Ke},
+  journal = {Computer Methods in Applied Mechanics and Engineering},
+  volume  = {438},
+  pages   = {117950},
+  year    = {2025},
+  doi     = {10.1016/j.cma.2025.117950},
+  url     = {https://doi.org/10.1016/j.cma.2025.117950}
+}
+```
 
 ## License
 
-This project is released under the MIT License. See `LICENSE` for details.
-
+This project is released under the MIT License. See [`LICENSE`](LICENSE) for details.
